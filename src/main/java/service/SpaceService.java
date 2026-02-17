@@ -2,6 +2,7 @@ package service;
 
 import model.*;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SpaceService {
@@ -27,5 +28,13 @@ public class SpaceService {
                 .filter(a -> a.getSpacecraft().equals(spacecraft)
                         && a.getStatus() == AstronautStatus.ACTIVE)
                 .toList();
+    }
+
+    // Task 3: sort astronauts by experience and name
+    public List<Astronaut> sortedAstronauts() {
+        Comparator<Astronaut> cmp = Comparator
+                .comparingInt(Astronaut::getExperienceLevel).reversed()
+                .thenComparing(Astronaut::getName);
+        return astronauts.stream().sorted(cmp).toList();
     }
 }

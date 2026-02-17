@@ -30,6 +30,7 @@ public class Main {
         for (Astronaut a : service.getAstronauts()) {
             System.out.println(a);
         }
+        System.out.println("Task 1 completed.\n");
 
         //Task 2: Filtern nach spacecraft und Status.
         System.out.println("Task 2: Filtering on Spacecraft and Status:");
@@ -41,6 +42,12 @@ public class Main {
         }
         System.out.println("Task 2 completed.\n");
 
-
+        // Task 3: Sortieren der Astronauten nach skillLevel (absteigend) und dann nach name (aufsteigend).
+        System.out.println("Task 3: Sorting of Astronauts: ");
+        List<Astronaut> sorted = service.sortedAstronauts();
+        for (Astronaut a : sorted) {
+            System.out.println(a);
+        }
+        System.out.println("Task 3 completed.\n");
     }
 }
