@@ -49,5 +49,11 @@ public class Main {
             System.out.println(a);
         }
         System.out.println("Task 3 completed.\n");
+
+        // Task 4: Speichern der sortierten Astronauten (umgekehrt) in einer Textdatei.
+        List<Astronaut> sorted2 = service.reverseSortedAstronauts();
+        service.writeAstronauts(Path.of("astronauts_sorted.txt"), sorted2);
+        System.out.println("Task 4 completed.\n");
+
     }
 }
