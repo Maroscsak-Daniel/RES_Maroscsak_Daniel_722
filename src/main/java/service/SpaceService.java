@@ -1,8 +1,6 @@
 package service;
 
-import model.Astronaut;
-import model.MissionEvent;
-import model.Supply;
+import model.*;
 
 import java.util.List;
 
@@ -22,4 +20,12 @@ public class SpaceService {
     public List<Astronaut> getAstronauts() { return astronauts; }
     public List<MissionEvent> getEvents() { return events; }
     public List<Supply> getSupplies() { return supplies; }
+
+    // Task 2: filter astronauts by spacecraft and status
+    public List<Astronaut> activeBySpacecraft(String spacecraft) {
+        return astronauts.stream()
+                .filter(a -> a.getSpacecraft().equals(spacecraft)
+                        && a.getStatus() == AstronautStatus.ACTIVE)
+                .toList();
+    }
 }

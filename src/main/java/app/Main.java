@@ -8,6 +8,7 @@ import util.JsonUtil;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -29,5 +30,17 @@ public class Main {
         for (Astronaut a : service.getAstronauts()) {
             System.out.println(a);
         }
+
+        //Task 2: Filtern nach spacecraft und Status.
+        System.out.println("Task 2: Filtering on Spacecraft and Status:");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Input spacecraft: ");
+        String d = sc.nextLine();
+        for (Astronaut a : service.activeBySpacecraft(d)) {
+            System.out.println(a);
+        }
+        System.out.println("Task 2 completed.\n");
+
+
     }
 }
