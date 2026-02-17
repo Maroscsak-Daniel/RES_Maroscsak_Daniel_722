@@ -56,4 +56,13 @@ public class SpaceService {
             throw new RuntimeException("Failed to write file " + out + ": " + e.getMessage(), e);
         }
     }
+
+    // Task 5: first N computed points lines
+    public List<String> firstNComputedPointsLines(int n) {
+        return events.stream()
+                .limit(n)
+                .map(ev -> "Event " + ev.getId() + " -> raw=" + ev.getBasePoints()
+                        + " -> computed=" + ev.computedPoints())
+                .toList();
+    }
 }

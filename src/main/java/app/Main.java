@@ -55,5 +55,11 @@ public class Main {
         service.writeAstronauts(Path.of("astronauts_sorted.txt"), sorted2);
         System.out.println("Task 4 completed.\n");
 
+        // Task 5: Punktberechnung
+        System.out.println("Task 5: Points calculation: ");
+        for (String line : service.firstNComputedPointsLines(5)) {
+            System.out.println(line);
+        }
+        System.out.println("Task 5 completed.\n");
     }
 }
