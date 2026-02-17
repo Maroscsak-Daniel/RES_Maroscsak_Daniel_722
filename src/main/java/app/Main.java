@@ -61,5 +61,9 @@ public class Main {
             System.out.println(line);
         }
         System.out.println("Task 5 completed.\n");
+
+        // Task 7: Abschlussbericht
+        service.writeMissionReport(Path.of("mission_report.txt"));
+        System.out.println("Task 7 completed.\n");
     }
 }

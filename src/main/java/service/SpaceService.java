@@ -4,8 +4,11 @@ import model.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SpaceService {
     private final List<Astronaut> astronauts;
@@ -64,5 +67,25 @@ public class SpaceService {
                 .map(ev -> "Event " + ev.getId() + " -> raw=" + ev.getBasePoints()
                         + " -> computed=" + ev.computedPoints())
                 .toList();
+    }
+
+    // Task 7: write report
+    public void writeMissionReport(Path out) {
+        EnumMap<MissionEventType, Long> counts = events.stream()
+                .collect(Collectors.groupingBy(
+                        MissionEvent::getType,
+                        () -> new EnumMap<>(MissionEventType.class),
+                        Collectors.counting()
+                ));
+
+        List<String> lines = Arrays.stream(MissionEventType.values())
+                .map(t -> t + " -> " + counts.getOrDefault(t, 0L))
+                .toList();
+
+        try {
+            Files.write(out, lines);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to write report " + out + ": " + e.getMessage(), e);
+        }
     }
 }
