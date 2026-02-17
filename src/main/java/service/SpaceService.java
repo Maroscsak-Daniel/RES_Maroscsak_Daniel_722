@@ -4,10 +4,8 @@ import model.*;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.EnumMap;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SpaceService {
@@ -68,6 +66,43 @@ public class SpaceService {
                         + " -> computed=" + ev.computedPoints())
                 .toList();
     }
+
+    // Task 6: top 5 astronauts by risk score
+    // Task 6
+    public List<RankRow> topN(int n) {
+        Map<Integer, Astronaut> byId = astronauts.stream()
+                .collect(Collectors.toMap(Astronaut::getId, Function.identity()));
+
+        Map<Integer, Integer> eventSumByAstronaut= events.stream()
+                .collect(Collectors.groupingBy(
+                        MissionEvent::getAstronautId,
+                        Collectors.summingInt(MissionEvent::computedPoints)
+                ));
+
+        Map<Integer, Integer> supplySumByAstronaut= supplies.stream()
+                .collect(Collectors.groupingBy(
+                        Supply::getAstronautId,
+                        Collectors.summingInt(Supply::getValue)
+                ));
+
+        List<RankRow> rows = new ArrayList<>();
+        for (Astronaut a : astronauts) {
+            int evSum = eventSumByAstronaut.getOrDefault(a.getId(), 0);
+            int gSum = supplySumByAstronaut.getOrDefault(a.getId(), 0);
+            rows.add(new RankRow(a.getName(), a.getSpacecraft(), evSum + gSum));
+        }
+
+        rows.sort(Comparator.comparingInt(RankRow::totalScore).reversed()
+                .thenComparing(RankRow::name));
+
+        return rows.stream().limit(n).toList();
+    }
+
+    public record RankRow(String name, String spacecraft, int totalScore) {}
+
+
+
+
 
     // Task 7: write report
     public void writeMissionReport(Path out) {

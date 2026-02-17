@@ -62,6 +62,17 @@ public class Main {
         }
         System.out.println("Task 5 completed.\n");
 
+        // Task 6: Top 5 Astronauten
+        System.out.println("Top 5 Astronauts:");
+        var top = service.topN(5);
+        for (int i = 0; i < top.size(); i++) {
+            var row = top.get(i);
+            System.out.println((i + 1) + ". " + row.name() + " (" + row.spacecraft() + ") -> totalPoints=" + row.totalScore());
+        }
+        System.out.println("Leading spacecraft: " + top.get(0).spacecraft());
+        var leading = service.topN(1);
+        System.out.println("Task 6 completed.\n");
+
         // Task 7: Abschlussbericht
         service.writeMissionReport(Path.of("mission_report.txt"));
         System.out.println("Task 7 completed.\n");
